@@ -11,6 +11,27 @@ const StyledSearchBarContainer = styled.div`
   border-radius: 10px;
   padding: 5px;
 
+  .search-input {
+    width: 700px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    input {
+      width: 60%;
+      height: 30px;
+      background: #2b3d66;
+      border: none;
+      font-size: 1.2rem;
+      color: white;
+
+      :focus {
+        outline: none;
+      }
+    }
+  }
+
   .btn-search {
       min-width: 100px;
       height: 50px;
