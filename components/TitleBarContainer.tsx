@@ -8,6 +8,7 @@ const StyledTitleBarContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   color: white;
+  font-size: 1.1rem;
 `;
 
 function TitleBarContainer() {
