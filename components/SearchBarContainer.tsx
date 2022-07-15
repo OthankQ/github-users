@@ -19,7 +19,7 @@ const StyledSearchBarContainer = styled.div`
     justify-content: flex-start;
 
     input {
-      width: 60%;
+      width: 100%;
       height: 30px;
       background: #2b3d66;
       border: none;
