@@ -13,7 +13,7 @@ const StyledMainContainer = styled.div`
   border-radius: 10px;
   height: 600px;
   width: 800px;
-  padding: 5px;
+  padding: 30px;
   gap: 10px;
 `;
 
