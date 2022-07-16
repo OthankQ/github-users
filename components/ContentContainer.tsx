@@ -5,7 +5,8 @@ import profile from '../public/images/profile.png';
 
 const StyledContentContainer = styled.div`
   width: 100%;
-  height: 440px;
+  min-height: 400px;
+  height: auto;
   display: flex;
   background-color: #2b3d66;
   border-radius: 10px;
@@ -79,6 +80,14 @@ const StyledContentContainer = styled.div`
         font-size: 1.5rem;
       }
     }
+
+    .other-info {
+      height: 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      align-items: end;
+    }
   }
 `;
 
@@ -102,7 +111,7 @@ export default function ContentContainer() {
           <p>@octocat</p>
         </div>
         <div className="bio">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam autem illo debitis quae quibusdam at ea facere itaque et similique!</p>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum magni consequuntur deleniti a. Doloribus et aliquid harum excepturi inventore, deserunt eaque ab vitae ducimus veritatis, accusantium, possimus reprehenderit odio animi?</p>
         </div>
         <div className="repo-and-follow">
           <div className="repos">
@@ -118,7 +127,20 @@ export default function ContentContainer() {
             <h3>9</h3>
           </div>
         </div>
-        <div className="other-info"></div>
+        <div className="other-info">
+          <div className="location">
+            <p>San Francisco</p>
+          </div>
+          <div className="twitter">
+            <p>Not available</p>
+          </div>
+          <div className="blog">
+            <p>https://github.blog</p>
+          </div>
+          <div className="company">
+            @github
+          </div>
+        </div>
       </div>
     </StyledContentContainer>
   );
