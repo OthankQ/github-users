@@ -3,8 +3,12 @@ import styled from 'styled-components';
 
 import profile from '../public/images/profile.png';
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSearch
+  faLocationDot,
+  faDove,
+  faLink,
+  faCity,
 } from "@fortawesome/free-solid-svg-icons";
 
 const StyledContentContainer = styled.div`
@@ -91,6 +95,17 @@ const StyledContentContainer = styled.div`
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
       align-items: end;
+
+      .location, .twitter, .blog, .company {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        color: white;
+      }
+
+      .unavailable {
+        color: grey;
+      }
     }
   }
 `;
@@ -133,16 +148,28 @@ export default function ContentContainer() {
         </div>
         <div className="other-info">
           <div className="location">
+            <FontAwesomeIcon
+              icon={faLocationDot}
+            />
             <p>San Francisco</p>
           </div>
-          <div className="twitter">
+          <div className="twitter unavailable">
+            <FontAwesomeIcon
+              icon={faDove}
+            />
             <p>Not available</p>
           </div>
           <div className="blog">
+            <FontAwesomeIcon
+              icon={faLink}
+            />
             <p>https://github.blog</p>
           </div>
           <div className="company">
-            @github
+            <FontAwesomeIcon
+              icon={faCity}
+            />
+            <p>@github</p>
           </div>
         </div>
       </div>
