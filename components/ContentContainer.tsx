@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import profile from '../public/images/profile.png';
@@ -120,6 +120,7 @@ const StyledContentContainer = styled.div`
 
 export default function ContentContainer() {
 
+  const [searchStr, setSearchStr] = useState('');
   const [username, setUsername] = useState('');
   const [joinedDate, setJoinedDate] = useState('');
   const [handler, setHandler] = useState('');
@@ -132,6 +133,24 @@ export default function ContentContainer() {
   const [blog, setBlog] = useState('');
   const [company, setCompany] = useState('');
 
+  useEffect(() => {
+    fetch('https://api.github.com/users/octocat')
+      .then(res => res.json())
+      .then(data => {
+        setUsername(data.name);
+        setJoinedDate(data.created_at);
+        setHandler(`@${data.login}`);
+        setBio(data.bio);
+        setRepos(data.public_repos.toString());
+        setFollowers(data.followers);
+        setFollowing(data.following);
+        setLocation(data.location);
+        setTwitter(data.twitter_username);
+        setBlog(data.blog);
+        setCompany(data.company);
+      })
+  })
+
   return (
     <StyledContentContainer>
       <div className="profile-pic-container">
@@ -141,30 +160,30 @@ export default function ContentContainer() {
       <div className="info-container">
         <div className="username-and-joined-date">
           <div className="username">
-            <h3>The Octocat</h3>
+            <h3>{username}</h3>
           </div>
           <div className="joined-date">
-            <p>Joined 25 Jan 2011</p>
+            <p>{joinedDate}</p>
           </div>
         </div>
         <div className="handler">
-          <p>@octocat</p>
+          <p>{handler}</p>
         </div>
         <div className="bio">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum magni consequuntur deleniti a. Doloribus et aliquid harum excepturi inventore, deserunt eaque ab vitae ducimus veritatis, accusantium, possimus reprehenderit odio animi?</p>
+          <p>{bio ?? 'Unavailable'}</p>
         </div>
         <div className="repo-and-follow">
           <div className="repos">
             <p>Repos</p>
-            <h3>8</h3>
+            <h3>{repos}</h3>
           </div>
           <div className="followers">
             <p>Followers</p>
-            <h3>3938</h3>
+            <h3>{followers}</h3>
           </div>
           <div className="following">
             <p>Following</p>
-            <h3>9</h3>
+            <h3>{following}</h3>
           </div>
         </div>
         <div className="other-info">
@@ -172,25 +191,25 @@ export default function ContentContainer() {
             <FontAwesomeIcon
               icon={faLocationDot}
             />
-            <p>San Francisco</p>
+            <p>{location ?? 'Unavailable'}</p>
           </div>
           <div className="twitter unavailable">
             <FontAwesomeIcon
               icon={faDove}
             />
-            <p>Not available</p>
+            <p>{twitter ?? 'Unavailable'}</p>
           </div>
           <div className="blog">
             <FontAwesomeIcon
               icon={faLink}
             />
-            <p>https://github.blog</p>
+            <p>{blog ?? 'Unavailable'}</p>
           </div>
           <div className="company">
             <FontAwesomeIcon
               icon={faCity}
             />
-            <p>@github</p>
+            <p>{company ?? 'Unavailable'}</p>
           </div>
         </div>
       </div>
