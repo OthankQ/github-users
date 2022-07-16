@@ -1,6 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSearch
+} from "@fortawesome/free-solid-svg-icons";
+
 const StyledSearchBarContainer = styled.div`
   width: 100%;
   height: 60px;
@@ -17,6 +22,7 @@ const StyledSearchBarContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    padding-left: 20px;
 
     input {
       width: 100%;
@@ -25,6 +31,7 @@ const StyledSearchBarContainer = styled.div`
       border: none;
       font-size: 1.2rem;
       color: white;
+      margin-left: 20px;
 
       :focus {
         outline: none;
@@ -47,6 +54,10 @@ export default function SearchBarContainer() {
   return (
     <StyledSearchBarContainer>
         <div className="search-input">
+          <FontAwesomeIcon
+          icon={faSearch}
+          style={{fontSize:"30", color: "hsl(212,88%,45%)" }}
+          />
             <input type="text" />
         </div>
         <div className="search-button-group">

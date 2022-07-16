@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 import profile from '../public/images/profile.png';
 
+import {
+  faSearch
+} from "@fortawesome/free-solid-svg-icons";
+
 const StyledContentContainer = styled.div`
   width: 100%;
   min-height: 400px;
