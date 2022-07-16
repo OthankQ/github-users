@@ -103,6 +103,14 @@ const StyledContentContainer = styled.div`
         color: white;
       }
 
+      .blog {
+        gap: 12px;
+      }
+
+      .company {
+        gap: 15px;
+      }
+
       .unavailable {
         color: grey;
       }
