@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import profile from '../public/images/profile.png';
@@ -119,6 +119,19 @@ const StyledContentContainer = styled.div`
 `;
 
 export default function ContentContainer() {
+
+  const [username, setUsername] = useState('');
+  const [joinedDate, setJoinedDate] = useState('');
+  const [handler, setHandler] = useState('');
+  const [bio, setBio] = useState('');
+  const [repos, setRepos] = useState('');
+  const [followers, setFollowers] = useState('');
+  const [following, setFollowing] = useState('');
+  const [location, setLocation] = useState('');
+  const [twitter, setTwitter] = useState('');
+  const [blog, setBlog] = useState('');
+  const [company, setCompany] = useState('');
+
   return (
     <StyledContentContainer>
       <div className="profile-pic-container">
