@@ -118,9 +118,14 @@ const StyledContentContainer = styled.div`
   }
 `;
 
-export default function ContentContainer() {
+type contentContainerProps = {
+  searchStr: string;
+}
 
-  const [searchStr, setSearchStr] = useState('');
+export default function ContentContainer(props: contentContainerProps) {
+
+  const searchStr = props.searchStr;
+  const [avatarUrl, setAvatarUrl] = useState('');
   const [username, setUsername] = useState('');
   const [joinedDate, setJoinedDate] = useState('');
   const [handler, setHandler] = useState('');
@@ -137,6 +142,7 @@ export default function ContentContainer() {
     fetch('https://api.github.com/users/octocat')
       .then(res => res.json())
       .then(data => {
+        setAvatarUrl(data.avatar_url);
         setUsername(data.name);
         setJoinedDate(data.created_at);
         setHandler(`@${data.login}`);
@@ -148,13 +154,18 @@ export default function ContentContainer() {
         setTwitter(data.twitter_username);
         setBlog(data.blog);
         setCompany(data.company);
+        console.log(searchStr);
       })
   })
+
+  function fetchUser() {
+    
+  }
 
   return (
     <StyledContentContainer>
       <div className="profile-pic-container">
-        <img src={profile.src} alt="profile picture" />
+        <img src={avatarUrl} alt="profile picture" />
       </div>
 
       <div className="info-container">
@@ -163,7 +174,7 @@ export default function ContentContainer() {
             <h3>{username}</h3>
           </div>
           <div className="joined-date">
-            <p>{joinedDate}</p>
+            <p>Joined {joinedDate}</p>
           </div>
         </div>
         <div className="handler">
@@ -203,7 +214,7 @@ export default function ContentContainer() {
             <FontAwesomeIcon
               icon={faLink}
             />
-            <p>{blog ?? 'Unavailable'}</p>
+            <p>{blog == "" ? 'Unavailable' : blog}</p>
           </div>
           <div className="company">
             <FontAwesomeIcon

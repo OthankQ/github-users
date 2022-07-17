@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import TitleBarContainer from './TitleBarContainer';
@@ -18,11 +18,19 @@ const StyledMainContainer = styled.div`
 `;
 
 export default function MainContainer() {
+
+  const [searchStr, setSearchStr] = useState('')
+
+  function handleSearchChange(event: React.FormEvent<HTMLInputElement>) {
+    setSearchStr(event.currentTarget.value);
+    console.log(searchStr);
+  }
+
   return (
     <StyledMainContainer>
       <TitleBarContainer></TitleBarContainer>
-      <SearchBarContainer></SearchBarContainer>
-      <ContentContainer></ContentContainer>
+      <SearchBarContainer onChange={handleSearchChange}></SearchBarContainer>
+      <ContentContainer searchStr={searchStr}></ContentContainer>
     </StyledMainContainer>
   );
 };

@@ -50,7 +50,11 @@ const StyledSearchBarContainer = styled.div`
   }
 `;
 
-export default function SearchBarContainer() {
+type searchBarProps = {
+  onChange: (e: React.FormEvent<HTMLInputElement>) => void;
+}
+
+export default function SearchBarContainer(props: searchBarProps) {
   return (
     <StyledSearchBarContainer>
         <div className="search-input">
@@ -58,7 +62,7 @@ export default function SearchBarContainer() {
           icon={faSearch}
           style={{fontSize:"30", color: "hsl(212,88%,45%)" }}
           />
-            <input type="text" />
+            <input type="text" onChange={props.onChange}/>
         </div>
         <div className="search-button-group">
             <button className='btn-search'>Search</button>
