@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import styled from 'styled-components';
 
 import profile from '../public/images/profile.png';
@@ -118,44 +118,56 @@ const StyledContentContainer = styled.div`
   }
 `;
 
-type contentContainerProps = {
-  searchStr: string;
-}
+export type contentContainerProps = {
+  searchResult: {
+    avatar_url: string,
+    name: string,
+    created_at: string,
+    login: string,
+    bio: string,
+    public_repos: number,
+    followers: number,
+    following: number,
+    location: string,
+    twitter_username: string,
+    blog: string,
+    company: string,
+  };
+};
 
 export default function ContentContainer(props: contentContainerProps) {
 
-  const searchStr = props.searchStr;
   const [avatarUrl, setAvatarUrl] = useState('');
   const [username, setUsername] = useState('');
   const [joinedDate, setJoinedDate] = useState('');
   const [handler, setHandler] = useState('');
   const [bio, setBio] = useState('');
   const [repos, setRepos] = useState('');
-  const [followers, setFollowers] = useState('');
-  const [following, setFollowing] = useState('');
+  const [followers, setFollowers] = useState(0);
+  const [following, setFollowing] = useState(0);
   const [location, setLocation] = useState('');
   const [twitter, setTwitter] = useState('');
   const [blog, setBlog] = useState('');
   const [company, setCompany] = useState('');
 
   useEffect(() => {
-    fetch('https://api.github.com/users/octocat')
-      .then(res => res.json())
-      .then(data => {
-        setAvatarUrl(data.avatar_url);
-        setUsername(data.name);
-        setJoinedDate(data.created_at);
-        setHandler(`@${data.login}`);
-        setBio(data.bio);
-        setRepos(data.public_repos.toString());
-        setFollowers(data.followers);
-        setFollowing(data.following);
-        setLocation(data.location);
-        setTwitter(data.twitter_username);
-        setBlog(data.blog);
-        setCompany(data.company);
-        console.log(searchStr);
-      })
+    console.log(props.searchResult);
+    // Check if searchResult is not null
+    if (Object.keys(props.searchResult).length) {
+      setAvatarUrl(props.searchResult.avatar_url);
+      setUsername(props.searchResult.name);
+      setJoinedDate(props.searchResult.created_at);
+      setHandler(`@${props.searchResult.login}`);
+      setBio(props.searchResult.bio);
+      setRepos(props.searchResult.public_repos.toString());
+      setFollowers(props.searchResult.followers);
+      setFollowing(props.searchResult.following);
+      setLocation(props.searchResult.location);
+      setTwitter(props.searchResult.twitter_username);
+      setBlog(props.searchResult.blog);
+      setCompany(props.searchResult.company);
+      console.log(username);
+    }
   })
 
   function fetchUser() {
@@ -227,5 +239,3 @@ export default function ContentContainer(props: contentContainerProps) {
     </StyledContentContainer>
   );
 };
-
-

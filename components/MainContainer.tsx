@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
+import { contentContainerProps } from './ContentContainer';
 
 import TitleBarContainer from './TitleBarContainer';
 import SearchBarContainer from './SearchBarContainer';
@@ -19,18 +21,41 @@ const StyledMainContainer = styled.div`
 
 export default function MainContainer() {
 
-  const [searchStr, setSearchStr] = useState('')
+  const [searchStr, setSearchStr] = useState('octocat');
+  const [searchResult, setSearchResult] = useState({
+    avatar_url: '',
+    name: '',
+    created_at: '',
+    login: '',
+    bio: '',
+    public_repos: 0,
+    followers: 0,
+    following: 0,
+    location: '',
+    twitter_username: '',
+    blog: '',
+    company: '',
+  });
 
   function handleSearchChange(event: React.FormEvent<HTMLInputElement>) {
     setSearchStr(event.currentTarget.value);
-    console.log(searchStr);
   }
+
+  function searchBtnClick() {
+    fetch(`https://api.github.com/users/${searchStr}`)
+      .then(res => res.json())
+      .then(data => setSearchResult(data));
+  }
+
+  useEffect(() => {
+    searchBtnClick();
+  }, []);
 
   return (
     <StyledMainContainer>
       <TitleBarContainer></TitleBarContainer>
-      <SearchBarContainer onChange={handleSearchChange}></SearchBarContainer>
-      <ContentContainer searchStr={searchStr}></ContentContainer>
+      <SearchBarContainer onChange={handleSearchChange} onSearchClick={searchBtnClick}></SearchBarContainer>
+      <ContentContainer searchResult={searchResult}></ContentContainer>
     </StyledMainContainer>
   );
 };
