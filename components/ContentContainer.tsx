@@ -155,7 +155,7 @@ export default function ContentContainer(props: contentContainerProps) {
     if (Object.keys(props.searchResult).length) {
       setAvatarUrl(props.searchResult.avatar_url);
       setUsername(props.searchResult.name);
-      setJoinedDate(props.searchResult.created_at);
+      setJoinedDate(formatDate(props.searchResult.created_at));
       setHandler(`@${props.searchResult.login}`);
       setBio(props.searchResult.bio);
       setRepos(props.searchResult.public_repos.toString());
@@ -168,8 +168,17 @@ export default function ContentContainer(props: contentContainerProps) {
     }
   }, [props.searchResult])
 
-  function fetchUser() {
-    
+  function formatDate(joinedDate: string): string {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    const d = new Date(joinedDate);
+    const date = d.getDate();
+    const month = months[d.getMonth()];
+    const year = d.getFullYear();
+
+    const formattedDate = `${date} ${month} ${year}`;
+
+    return formattedDate;
   }
 
   return (
