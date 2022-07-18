@@ -21,7 +21,7 @@ const StyledMainContainer = styled.div`
 
 export default function MainContainer() {
 
-  const [searchStr, setSearchStr] = useState('octocat');
+  const [searchStr, setSearchStr] = useState('');
   const [searchResult, setSearchResult] = useState({
     avatar_url: '',
     name: '',
@@ -48,7 +48,9 @@ export default function MainContainer() {
   }
 
   useEffect(() => {
-    searchBtnClick();
+    fetch(`https://api.github.com/users/octocat`)
+      .then(res => res.json())
+      .then(data => setSearchResult(data));
   }, []);
 
   return (

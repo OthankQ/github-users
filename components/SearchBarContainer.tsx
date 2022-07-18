@@ -47,6 +47,15 @@ const StyledSearchBarContainer = styled.div`
       border-radius: 10px;
       font-size: 1.1rem;
       background-color: hsl(212,88%,45%);
+
+      :hover {
+        cursor: pointer;
+        background-color: #3f86d7;
+      }
+
+      :active {
+        background-color: #6298d7;
+      }
   }
 `;
 
@@ -56,6 +65,13 @@ type searchBarProps = {
 }
 
 export default function SearchBarContainer(props: searchBarProps) {
+
+  function handleKeyPress(e: React.KeyboardEvent) {
+    if (e.key === 'Enter') {
+      props.onSearchClick();
+    }
+  }
+
   return (
     <StyledSearchBarContainer>
         <div className="search-input">
@@ -63,7 +79,7 @@ export default function SearchBarContainer(props: searchBarProps) {
           icon={faSearch}
           style={{fontSize:"30", color: "hsl(212,88%,45%)" }}
           />
-            <input type="text" onChange={props.onChange}/>
+            <input type="text" onChange={props.onChange} onKeyDown={handleKeyPress}/>
         </div>
         <div className="search-button-group">
             <button className='btn-search' onClick={props.onSearchClick}>Search</button>
