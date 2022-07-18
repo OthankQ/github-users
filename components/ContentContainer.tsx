@@ -166,7 +166,6 @@ export default function ContentContainer(props: contentContainerProps) {
       setTwitter(props.searchResult.twitter_username);
       setBlog(props.searchResult.blog);
       setCompany(props.searchResult.company);
-      console.log(username);
     }
   })
 
@@ -210,25 +209,25 @@ export default function ContentContainer(props: contentContainerProps) {
           </div>
         </div>
         <div className="other-info">
-          <div className="location">
+          <div className="location" style={{color: props.searchResult.location ? 'white' : 'grey'}}>
             <FontAwesomeIcon
               icon={faLocationDot}
             />
             <p>{location ?? 'Unavailable'}</p>
           </div>
-          <div className="twitter unavailable">
+          <div className="twitter unavailable" style={{color: props.searchResult.twitter_username ? 'white' : 'grey'}}>
             <FontAwesomeIcon
               icon={faDove}
             />
             <p>{twitter ?? 'Unavailable'}</p>
           </div>
-          <div className="blog">
+          <div className="blog" style={{color: props.searchResult.blog ? 'white' : 'grey'}}>
             <FontAwesomeIcon
               icon={faLink}
             />
             <p>{blog == "" ? 'Unavailable' : blog}</p>
           </div>
-          <div className="company">
+          <div className="company" style={{color: props.searchResult.company ? 'white' : 'grey'}}>
             <FontAwesomeIcon
               icon={faCity}
             />
