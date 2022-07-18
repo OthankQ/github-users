@@ -151,7 +151,6 @@ export default function ContentContainer(props: contentContainerProps) {
   const [company, setCompany] = useState('');
 
   useEffect(() => {
-    console.log(props.searchResult);
     // Check if searchResult is not null
     if (Object.keys(props.searchResult).length) {
       setAvatarUrl(props.searchResult.avatar_url);
@@ -167,7 +166,7 @@ export default function ContentContainer(props: contentContainerProps) {
       setBlog(props.searchResult.blog);
       setCompany(props.searchResult.company);
     }
-  })
+  }, [props.searchResult])
 
   function fetchUser() {
     
