@@ -1,8 +1,6 @@
 import React, { useState, useEffect, forwardRef } from 'react';
 import styled from 'styled-components';
 
-import profile from '../public/images/profile.png';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faLocationDot,
