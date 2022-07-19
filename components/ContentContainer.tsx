@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 import profile from '../public/images/profile.png';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faLocationDot,
   faDove,
   faLink,
   faCity,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
 const StyledContentContainer = styled.div`
   width: 100%;
@@ -20,6 +20,25 @@ const StyledContentContainer = styled.div`
   border-radius: 10px;
   padding: 30px;
   color: white;
+
+  .no-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .no-user-texts {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+
+      h3 {
+        font-size: 1.5rem;
+      }
+    }
+  }
 
   .profile-pic-container {
     width: 20%;
@@ -62,7 +81,7 @@ const StyledContentContainer = styled.div`
     .handler {
       display: flex;
       height: 40px;
-      color: hsl(212,88%,45%);
+      color: hsl(212, 88%, 45%);
     }
 
     .bio {
@@ -73,7 +92,7 @@ const StyledContentContainer = styled.div`
     .repo-and-follow {
       width: 100%;
       height: 80px;
-      background-color: hsl(222,40%,13%);
+      background-color: hsl(222, 40%, 13%);
       border-radius: 10px;
       display: flex;
       padding: 30px;
@@ -96,7 +115,10 @@ const StyledContentContainer = styled.div`
       grid-template-rows: 1fr 1fr;
       align-items: end;
 
-      .location, .twitter, .blog, .company {
+      .location,
+      .twitter,
+      .blog,
+      .company {
         display: flex;
         gap: 20px;
         align-items: center;
@@ -120,23 +142,22 @@ const StyledContentContainer = styled.div`
 
 export type contentContainerProps = {
   searchResult: {
-    avatar_url: string,
-    name: string,
-    created_at: string,
-    login: string,
-    bio: string,
-    public_repos: number,
-    followers: number,
-    following: number,
-    location: string,
-    twitter_username: string,
-    blog: string,
-    company: string,
+    avatar_url: string;
+    name: string;
+    created_at: string;
+    login: string;
+    bio: string;
+    public_repos: number;
+    followers: number;
+    following: number;
+    location: string;
+    twitter_username: string;
+    blog: string;
+    company: string;
   };
 };
 
 export default function ContentContainer(props: contentContainerProps) {
-
   const [avatarUrl, setAvatarUrl] = useState('');
   const [username, setUsername] = useState('');
   const [joinedDate, setJoinedDate] = useState('');
@@ -149,10 +170,12 @@ export default function ContentContainer(props: contentContainerProps) {
   const [twitter, setTwitter] = useState('');
   const [blog, setBlog] = useState('');
   const [company, setCompany] = useState('');
+  const [userExists, setUserExists] = useState(true);
 
   useEffect(() => {
-    // Check if searchResult is not null
-    if (Object.keys(props.searchResult).length) {
+    // Check if there are more 2 properties in searchResult
+    if (!props.searchResult.hasOwnProperty('message')) {
+      setUserExists(true);
       setAvatarUrl(props.searchResult.avatar_url);
       setUsername(props.searchResult.name);
       setJoinedDate(formatDate(props.searchResult.created_at));
@@ -165,11 +188,27 @@ export default function ContentContainer(props: contentContainerProps) {
       setTwitter(props.searchResult.twitter_username);
       setBlog(props.searchResult.blog);
       setCompany(props.searchResult.company);
+    } else {
+      console.log('this runs');
+      setUserExists(false);
     }
-  }, [props.searchResult])
+  }, [props.searchResult]);
 
   function formatDate(joinedDate: string): string {
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
 
     const d = new Date(joinedDate);
     const date = d.getDate();
@@ -183,66 +222,85 @@ export default function ContentContainer(props: contentContainerProps) {
 
   return (
     <StyledContentContainer>
-      <div className="profile-pic-container">
-        <img src={avatarUrl} alt="profile picture" />
-      </div>
+      {userExists ? (
+        <>
+          <div className="profile-pic-container">
+            <img src={avatarUrl} alt="profile picture" />
+          </div>
 
-      <div className="info-container">
-        <div className="username-and-joined-date">
-          <div className="username">
-            <h3>{username}</h3>
+          <div className="info-container">
+            <div className="username-and-joined-date">
+              <div className="username">
+                <h3>{username}</h3>
+              </div>
+              <div className="joined-date">
+                <p>Joined {joinedDate}</p>
+              </div>
+            </div>
+            <div className="handler">
+              <p>{handler}</p>
+            </div>
+            <div className="bio">
+              <p>{bio ?? 'Unavailable'}</p>
+            </div>
+            <div className="repo-and-follow">
+              <div className="repos">
+                <p>Repos</p>
+                <h3>{repos}</h3>
+              </div>
+              <div className="followers">
+                <p>Followers</p>
+                <h3>{followers}</h3>
+              </div>
+              <div className="following">
+                <p>Following</p>
+                <h3>{following}</h3>
+              </div>
+            </div>
+            <div className="other-info">
+              <div
+                className="location"
+                style={{
+                  color: props.searchResult.location ? 'white' : 'grey',
+                }}
+              >
+                <FontAwesomeIcon icon={faLocationDot} />
+                <p>{location ?? 'Unavailable'}</p>
+              </div>
+              <div
+                className="twitter unavailable"
+                style={{
+                  color: props.searchResult.twitter_username ? 'white' : 'grey',
+                }}
+              >
+                <FontAwesomeIcon icon={faDove} />
+                <p>{twitter ?? 'Unavailable'}</p>
+              </div>
+              <div
+                className="blog"
+                style={{ color: props.searchResult.blog ? 'white' : 'grey' }}
+              >
+                <FontAwesomeIcon icon={faLink} />
+                <p>{blog == '' ? 'Unavailable' : blog}</p>
+              </div>
+              <div
+                className="company"
+                style={{ color: props.searchResult.company ? 'white' : 'grey' }}
+              >
+                <FontAwesomeIcon icon={faCity} />
+                <p>{company ?? 'Unavailable'}</p>
+              </div>
+            </div>
           </div>
-          <div className="joined-date">
-            <p>Joined {joinedDate}</p>
+        </>
+      ) : (
+        <div className="no-user">
+          <div className="no-user-texts">
+            <h3>User with that username does not exist.</h3>
+            <h3>Please try again with a different username.</h3>
           </div>
         </div>
-        <div className="handler">
-          <p>{handler}</p>
-        </div>
-        <div className="bio">
-          <p>{bio ?? 'Unavailable'}</p>
-        </div>
-        <div className="repo-and-follow">
-          <div className="repos">
-            <p>Repos</p>
-            <h3>{repos}</h3>
-          </div>
-          <div className="followers">
-            <p>Followers</p>
-            <h3>{followers}</h3>
-          </div>
-          <div className="following">
-            <p>Following</p>
-            <h3>{following}</h3>
-          </div>
-        </div>
-        <div className="other-info">
-          <div className="location" style={{color: props.searchResult.location ? 'white' : 'grey'}}>
-            <FontAwesomeIcon
-              icon={faLocationDot}
-            />
-            <p>{location ?? 'Unavailable'}</p>
-          </div>
-          <div className="twitter unavailable" style={{color: props.searchResult.twitter_username ? 'white' : 'grey'}}>
-            <FontAwesomeIcon
-              icon={faDove}
-            />
-            <p>{twitter ?? 'Unavailable'}</p>
-          </div>
-          <div className="blog" style={{color: props.searchResult.blog ? 'white' : 'grey'}}>
-            <FontAwesomeIcon
-              icon={faLink}
-            />
-            <p>{blog == "" ? 'Unavailable' : blog}</p>
-          </div>
-          <div className="company" style={{color: props.searchResult.company ? 'white' : 'grey'}}>
-            <FontAwesomeIcon
-              icon={faCity}
-            />
-            <p>{company ?? 'Unavailable'}</p>
-          </div>
-        </div>
-      </div>
+      )}
     </StyledContentContainer>
   );
-};
+}

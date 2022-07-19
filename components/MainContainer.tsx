@@ -20,7 +20,6 @@ const StyledMainContainer = styled.div`
 `;
 
 export default function MainContainer() {
-
   const [searchStr, setSearchStr] = useState('');
   const [searchResult, setSearchResult] = useState({
     avatar_url: '',
@@ -43,22 +42,27 @@ export default function MainContainer() {
 
   function searchBtnClick() {
     fetch(`https://api.github.com/users/${searchStr}`)
-      .then(res => res.json())
-      .then(data => setSearchResult(data));
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setSearchResult(data);
+      });
   }
 
   useEffect(() => {
     fetch(`https://api.github.com/users/octocat`)
-      .then(res => res.json())
-      .then(data => setSearchResult(data));
+      .then((res) => res.json())
+      .then((data) => setSearchResult(data));
   }, []);
 
   return (
     <StyledMainContainer>
       <TitleBarContainer></TitleBarContainer>
-      <SearchBarContainer onChange={handleSearchChange} onSearchClick={searchBtnClick}></SearchBarContainer>
+      <SearchBarContainer
+        onChange={handleSearchChange}
+        onSearchClick={searchBtnClick}
+      ></SearchBarContainer>
       <ContentContainer searchResult={searchResult}></ContentContainer>
     </StyledMainContainer>
   );
-};
-
+}
