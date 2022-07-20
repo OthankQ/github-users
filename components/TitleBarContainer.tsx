@@ -2,10 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import profile from '../public/images/profile.png';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSun,
-} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSun } from '@fortawesome/free-solid-svg-icons';
 
 const StyledTitleBarContainer = styled.div`
   width: 100%;
@@ -31,14 +29,6 @@ function TitleBarContainer() {
   return (
     <StyledTitleBarContainer>
       <h3>devfinder</h3>
-      <div className="mode">
-        <p>Light</p>
-        <FontAwesomeIcon
-          icon={faSun}
-          style={{ color: "white" }}
-        />
-      </div>
-      
     </StyledTitleBarContainer>
   );
 }
