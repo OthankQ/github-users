@@ -17,6 +17,10 @@ const StyledMainContainer = styled.div`
   width: 800px;
   padding: 30px;
   gap: 10px;
+
+  @media (max-width: 768px) {
+    width: 600px;
+  }
 `;
 
 export default function MainContainer() {

@@ -136,6 +136,17 @@ const StyledContentContainer = styled.div`
       }
     }
   }
+
+  @media (max-width: 768px) {
+    width: 600px;
+    padding: 20px;
+
+    .info-container {
+      .repo-and-follow {
+        gap: 120px;
+      }
+    }
+  }
 `;
 
 export type contentContainerProps = {

@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSearch
-} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const StyledSearchBarContainer = styled.div`
   width: 100%;
@@ -40,32 +38,35 @@ const StyledSearchBarContainer = styled.div`
   }
 
   .btn-search {
-      min-width: 100px;
-      height: 50px;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      background-color: hsl(212,88%,45%);
+    min-width: 100px;
+    height: 50px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    background-color: hsl(212, 88%, 45%);
 
-      :hover {
-        cursor: pointer;
-        background-color: #3f86d7;
-      }
+    :hover {
+      cursor: pointer;
+      background-color: #3f86d7;
+    }
 
-      :active {
-        background-color: #6298d7;
-      }
+    :active {
+      background-color: #6298d7;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 600px;
   }
 `;
 
 type searchBarProps = {
   onChange: (e: React.FormEvent<HTMLInputElement>) => void;
   onSearchClick: () => void;
-}
+};
 
 export default function SearchBarContainer(props: searchBarProps) {
-
   function handleKeyPress(e: React.KeyboardEvent) {
     if (e.key === 'Enter') {
       props.onSearchClick();
@@ -74,18 +75,22 @@ export default function SearchBarContainer(props: searchBarProps) {
 
   return (
     <StyledSearchBarContainer>
-        <div className="search-input">
-          <FontAwesomeIcon
+      <div className="search-input">
+        <FontAwesomeIcon
           icon={faSearch}
-          style={{fontSize:"30", color: "hsl(212,88%,45%)" }}
-          />
-            <input type="text" onChange={props.onChange} onKeyDown={handleKeyPress}/>
-        </div>
-        <div className="search-button-group">
-            <button className='btn-search' onClick={props.onSearchClick}>Search</button>
-        </div>
+          style={{ fontSize: '30', color: 'hsl(212,88%,45%)' }}
+        />
+        <input
+          type="text"
+          onChange={props.onChange}
+          onKeyDown={handleKeyPress}
+        />
+      </div>
+      <div className="search-button-group">
+        <button className="btn-search" onClick={props.onSearchClick}>
+          Search
+        </button>
+      </div>
     </StyledSearchBarContainer>
   );
-};
-
-
+}
